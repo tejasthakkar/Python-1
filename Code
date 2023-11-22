@@ -1,0 +1,78 @@
+# Constants
+PROFESSIONAL_TAX = 200
+TRANSPORT_ALLOWANCE = 900
+
+# Get user input for grade and city class
+grade = input("Enter your grade (GradeA, GradeB, GradeC, GradeD, GradeE or GradeF): ")
+city_class = input("Enter your city class (Class1, Class2, or Class3): ")
+
+# Initialize variables for basic pay and other allowances
+basic_pay = 0
+other_allowances = 0
+
+# Set basic pay and other allowances based on grade
+if grade == "GradeA":
+    basic_pay = 60000
+    other_allowances = 8000
+elif grade == "GradeB":
+    basic_pay = 50000
+    other_allowances = 7000
+elif grade == "GradeC":
+    basic_pay = 40000
+    other_allowances = 6000
+elif grade == "GradeD":
+    basic_pay = 30000
+    other_allowances = 5000
+elif grade == "GradeE":
+    basic_pay = 20000
+    other_allowances = 4000
+elif grade == "GradeF":
+    basic_pay = 10000
+    other_allowances = 3000
+else:
+    print("Invalid grade input")
+
+# Initialize variables for HRA and DRA
+hra = 0
+dra = 0
+
+# Set HRA and DRA based on city class
+if city_class == "Class1":
+    hra = 0.3 * basic_pay
+elif city_class == "Class2":
+    hra = 0.2 * basic_pay
+elif city_class == "Class3":
+    hra = 0.1 * basic_pay
+else:
+    print("Invalid city class input")
+
+dra = 0.5 * basic_pay
+
+# Calculate EPF
+epf = 0.11 * basic_pay
+
+# Calculate Gross Pay
+gross_pay = basic_pay + hra + dra + other_allowances + TRANSPORT_ALLOWANCE - PROFESSIONAL_TAX - epf
+
+# Calculate Annual Income
+annual_pay = 12 * gross_pay
+
+if annual_pay <= 250000:
+    income_tax = 0
+elif 250000 < annual_pay <= 500000:
+    income_tax = (annual_pay - 250000) * 0.05
+elif 500000 < annual_pay <= 750000:
+    income_tax = ((annual_pay - 500000) * 0.1)+12500
+elif 750000 < annual_pay <= 1000000:
+    income_tax = ((annual_pay - 750000) * 0.15) + 37500
+elif 1000000 < annual_pay <= 1250000:
+    income_tax = ((annual_pay - 1000000) * 0.2) + 75000
+elif 1250000 < annual_pay <= 1500000:
+    income_tax = ((annual_pay - 1250000) * 0.25) + 125000
+else:
+    income_tax =  (annual_pay - 1500000) * 0.3 + 187500
+    
+    
+print(f"Gross Pay (Monthly): {gross_pay}")
+print(f"Annual Pay: {annual_pay}")
+print(f"Income Tax: {income_tax}")
