@@ -1,0 +1,52 @@
+from abc import ABC,abstractmethod
+class Employee(ABC):
+    
+    def getEmployee(self):
+        self.id=input("Enter Employee id:")
+        self.name=input("Enter Name:")
+        self.salary=int(input("Enter Employee Basic Salary:"))
+    
+    def EmployeeDetails(self):
+        print("Employee ID:",self.id)
+        print("Employee Name:",self.name)
+        print("Employee Basic Salary:",self.salary)
+    
+    def getSalary(self):
+        return self.salary
+    
+    @abstractmethod
+    def emp_id(self):
+        pass
+
+class Perks(Employee):
+    
+    def calcPerks(self):
+        self.getEmployee()
+        sal=self.getSalary()
+        self.da=sal*35/100
+        self.hra=sal*17/100
+        self.pf=sal*12/100
+    def printPerks(self):
+        self.EmployeeDetails()
+        print("DA:",self.da)
+        print("HRA:", self.hra)
+        print("PF:",self.pf)
+    def totalPerks(self):
+        t=self.da+self.hra-self.pf
+        return t
+    def emp_id(self):
+        print("emp id")
+
+class NetSalary(Perks):
+    
+    def getTotal(self):
+        self.calcPerks()
+        self.ns=self.getSalary()+self.totalPerks()
+    
+    def showTotal(self):
+        self.printPerks()
+        print("Total Salary:",self.ns)
+
+empSalary=NetSalary()
+empSalary.getTotal()
+empSalary.showTotal()
