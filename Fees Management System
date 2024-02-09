@@ -1,0 +1,184 @@
+class Student:
+    def __init__(self, first_name, last_name, previous_std, address, mobile_no):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.previous_std = previous_std
+        self.address = address
+        self.mobile_no = self.validate_mobile_no(mobile_no)
+        self.generate_mail_id()
+
+    def validate_mobile_no(self, mobile_no):
+        while not mobile_no.isdigit() or len(mobile_no) != 10:
+            print("Enter a valid 10-digit Mobile number containing only digits:")
+            mobile_no = input()
+        return mobile_no
+
+    def generate_mail_id(self):
+        self.mail_id = f"{self.first_name.lower()}.{self.last_name.lower()}@ljku.edu.in"
+
+    def display(self):
+        print("Student Details:")
+        print(f"Name: {self.first_name} {self.last_name}")
+        print(f"Previous Standard: {self.previous_std}")
+        print(f"Address: {self.address}")
+        print(f"Mail ID: {self.mail_id}")
+        print(f"Mobile No: {self.mobile_no}")
+
+    def calculate_percentage(self):
+        print("Enter marks for Maths:")
+        maths = float(input())
+        print("Enter marks for Science:")
+        science = float(input())
+        print("Enter marks for Social Science:")
+        social_science = float(input())
+        print("Enter marks for English:")
+        english = float(input())
+
+        overall_percentage = (maths + science + social_science + english) / 4.0
+
+        if overall_percentage >= 90:
+            return 40.0
+        elif overall_percentage >= 80:
+            return 30.0
+        elif overall_percentage >= 70:
+            return 20.0
+        elif overall_percentage >= 60:
+            return 10.0
+        else:
+            return 0.0
+
+
+class ScienceStudent(Student):
+    science_student_id_counter = 1
+    science_fixed_fees = 50000
+
+    def __init__(self, first_name, last_name, previous_std, address, mobile_no):
+        super().__init__(first_name, last_name, previous_std, address, mobile_no)
+        self.generate_science_student_id()
+
+    def generate_science_student_id(self):
+        self.id = f"S{ScienceStudent.science_student_id_counter}"
+        ScienceStudent.science_student_id_counter += 1
+
+    def calculate_fees(self):
+        discount_percentage = self.calculate_percentage()
+        total_fees = ScienceStudent.science_fixed_fees - (ScienceStudent.science_fixed_fees * (discount_percentage / 100))
+        activity_charges = 0.05 * ScienceStudent.science_fixed_fees
+        stationary_charges = 0.02 * ScienceStudent.science_fixed_fees
+
+        self.display()
+        print("Category: Science Student")
+        print("Fees Details:")
+        print(f"Fixed Fees: {ScienceStudent.science_fixed_fees}")
+        print(f"Discount Percentage: {discount_percentage}%")
+        print(f"Activity Charges: {activity_charges}")
+        print(f"Stationary Charges: {stationary_charges}")
+        print(f"Total Fees: {total_fees + activity_charges + stationary_charges}")
+
+
+class CommerceStudent(Student):
+    commerce_student_id_counter = 31
+    commerce_fixed_fees = 40000
+
+    def __init__(self, first_name, last_name, previous_std, address, mobile_no):
+        super().__init__(first_name, last_name, previous_std, address, mobile_no)
+        self.generate_commerce_student_id()
+
+    def generate_commerce_student_id(self):
+        self.id = f"C{CommerceStudent.commerce_student_id_counter}"
+        CommerceStudent.commerce_student_id_counter += 1
+
+    def calculate_fees(self):
+        discount_percentage = self.calculate_percentage()
+        total_fees = CommerceStudent.commerce_fixed_fees - (CommerceStudent.commerce_fixed_fees * (discount_percentage / 100))
+        activity_charges = 0.05 * CommerceStudent.commerce_fixed_fees
+        stationary_charges = 0.02 * CommerceStudent.commerce_fixed_fees
+
+        self.display()
+        print("Category: Commerce Student")
+        print("Fees Details:")
+        print(f"Fixed Fees: {CommerceStudent.commerce_fixed_fees}")
+        print(f"Discount Percentage: {discount_percentage}%")
+        print(f"Activity Charges: {activity_charges}")
+        print(f"Stationary Charges: {stationary_charges}")
+        print(f"Total Fees: {total_fees + activity_charges + stationary_charges}")
+
+
+class SecondaryStudent(Student):
+    secondary_student_id_counter = 61
+    secondary_fixed_fees = 30000
+
+    def __init__(self, first_name, last_name, previous_std, address, mobile_no):
+        super().__init__(first_name, last_name, previous_std, address, mobile_no)
+        self.generate_secondary_student_id()
+
+    def generate_secondary_student_id(self):
+        self.id = f"Se{SecondaryStudent.secondary_student_id_counter}"
+        SecondaryStudent.secondary_student_id_counter += 1
+
+    def calculate_fees(self):
+        discount_percentage = self.calculate_percentage()
+        total_fees = SecondaryStudent.secondary_fixed_fees - (SecondaryStudent.secondary_fixed_fees * (discount_percentage / 100))
+        activity_charges = 0.05 * SecondaryStudent.secondary_fixed_fees
+        stationary_charges = 0.02 * SecondaryStudent.secondary_fixed_fees
+
+        self.display()
+        print("Category: Secondary Student")
+        print("Fees Details:")
+        print(f"Fixed Fees: {SecondaryStudent.secondary_fixed_fees}")
+        print(f"Discount Percentage: {discount_percentage}%")
+        print(f"Activity Charges: {activity_charges}")
+        print(f"Stationary Charges: {stationary_charges}")
+        print(f"Total Fees: {total_fees + activity_charges + stationary_charges}")
+
+
+
+choice = 0
+while choice != 4:
+        print("1. Science Student")
+        print("2. Commerce Student")
+        print("3. Secondary Student")
+        print("4. Exit/Quit")
+        print("Enter your choice:")
+
+        choice = int(input())
+
+        if choice == 1:
+            print("Enter details for Science Student:")
+            science_first_name = input("Enter first name: ")
+            science_last_name = input("Enter last name: ")
+            science_previous_std = input("Enter previous standard: ")
+            science_address = input("Enter address: ")
+            science_mobile_no = input("Enter mobile number: ")
+
+            science_student = ScienceStudent(science_first_name, science_last_name, science_previous_std, science_address, science_mobile_no)
+            science_student.calculate_fees()
+
+        elif choice == 2:
+            print("Enter details for Commerce Student:")
+            commerce_first_name = input("Enter first name: ")
+            commerce_last_name = input("Enter last name: ")
+            commerce_previous_std = input("Enter previous standard: ")
+            commerce_address = input("Enter address: ")
+            commerce_mobile_no = input("Enter mobile number: ")
+
+            commerce_student = CommerceStudent(commerce_first_name, commerce_last_name, commerce_previous_std, commerce_address, commerce_mobile_no)
+            commerce_student.calculate_fees()
+
+        elif choice == 3:
+            print("Enter details for Secondary Student:")
+            secondary_first_name = input("Enter first name: ")
+            secondary_last_name = input("Enter last name: ")
+            secondary_previous_std = input("Enter previous standard: ")
+            secondary_address = input("Enter address: ")
+            secondary_mobile_no = input("Enter mobile number: ")
+
+            secondary_student = SecondaryStudent(secondary_first_name, secondary_last_name, secondary_previous_std, secondary_address, secondary_mobile_no)
+            secondary_student.calculate_fees()
+
+        elif choice == 4:
+            print("Exiting the program.")
+            break
+
+        else:
+            print("Invalid choice. Please enter a valid option.")
