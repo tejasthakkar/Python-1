@@ -1,0 +1,51 @@
+class Bill:
+    rates={"HDD":5000, "RAM":2000, "Printer":6000, "Pendrive":800}
+    items={"HDD":0, "RAM":0, "Printer":0, "Pendrive":0}
+    
+    for i,j in rates.items():
+        print(i,j)
+        accept=input("Want this item ? Y/N : ").upper()
+        if(accept=="Y"):
+            items[i]=int(input("Enter No. of "+i+"'s: "))*rates[i]
+        print()
+    
+    def __init__(self):
+        print("1. Cash Payment:")
+        print("2. Cheque Payment:")
+        payment_method=int(input("Enter method 1/2: "))
+        if(payment_method==1):
+            cashpayment()
+        elif(payment_method==2):
+            cheque_no=int(input("Enter Cheque Number:"))
+            bankname=input("Enter Bank Name:")
+            chequepayment(cheque_no,bankname)
+            
+class cashpayment(Bill):
+    def __init__(self):
+        print()
+        print("Payment method is cash")
+        sum=0
+        for i,j in self.items.items():
+            sum+=j
+        print("Total amount to pay", sum)
+        dic={"2000 Rs. Note":2000, "500 Rs. Note":500, "200 Rs. Note":200, "100 Rs. Note":100, "50 Rs. Note":50,
+            "20 Rs. Note":20, "10 Rs. Note":10}
+        
+        print()
+        for i, j in dic.items(): 
+            if(sum>=j):
+                print(i+":", sum//j)
+                sum=sum%j
+                
+class chequepayment(Bill):
+    def __init__(self,cheque_no,bankname):
+        print()
+        print("Payment method is cheque")
+        sum=0
+        for i,j in self.items.items():
+            sum+=j
+        print("Total amount to pay", sum)
+        print("cheque No.:",cheque_no)
+        print("Bank Name:",bankname)
+
+customer=Bill()
