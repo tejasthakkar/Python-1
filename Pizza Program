@@ -1,0 +1,63 @@
+ def calculate_pizza_price(size, toppings, cheese):
+    cost = 0
+    # Calculate pizza base price based on size
+    if size == 'small':
+        cost += 50
+    elif size == 'medium':
+        cost += 100
+    else:
+        cost += 200
+    
+    # Calculate topping prices
+    topping_prices_20 = ['corn', 'tomato', 'onion', 'capsicum']
+    topping_prices_50 = ['mushroom', 'olives', 'broccoli']
+ 
+    for topping in toppings:
+         cost += 20 if topping in topping_prices_20 else 50
+    #Calculate cheese price
+    cost += 50 * len(cheese)
+    return cost
+
+def order_pizza():
+    pizzas = []
+    number = int(input("How many pizzas you want to order: "))
+    for i in range(number):
+        toppings = []
+        cheese = []
+        print('Customize Pizza', i + 1)
+        print('Select Pizza Size: small, medium or large')
+        size = input('Select size: ')
+        
+        print('''Select Toppings: 
+                20 for 'corn', 'tomato', 'onion', 'capsicum'
+                50 for 'mushroom', 'olives', 'broccoli' ''')
+        toppings_count = int(input('How many toppings: '))
+    
+        for _ in range(toppings_count):
+             toppings.append(input('Enter toppings: '))
+        
+        print('Select Cheese: mozarrella, feta, cheddar')
+        cheese_count = int(input('How many cheese: '))
+
+        for _ in range(cheese_count):
+             cheese.append(input('Enter cheese: '))
+             print()
+             pizza_cost = calculate_pizza_price(size, toppings, cheese)
+             pizzas.append((size, toppings, cheese, pizza_cost))
+             return pizzas
+
+def print_bill(pizzas):
+     total = 0
+     count = 1
+     for pizza in pizzas:
+         print('Pizza', count)
+         print("Size:", pizza[0])
+         print("Toppings:", pizza[1])
+         print("Cheese:", pizza[2])
+         print("Pizza cost:", pizza[3])
+         total += pizza[3]
+         count += 1
+         print('Total bill amount:', total)
+# Main program
+pizza_order = order_pizza()
+print_bill(pizza_order)
